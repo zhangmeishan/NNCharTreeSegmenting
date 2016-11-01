@@ -302,6 +302,8 @@ void TreeSegmentor::train(const string& trainFile, const string& devFile, const 
 		}
 
 		if (bEvaluate && devNum > 0) {
+			clock_t time_start = clock();
+			std::cout << "Dev start." << std::endl;
 			bCurIterBetter = false;
 			if (!m_options.outBest.empty())
 				decodeInstResults.clear();
@@ -313,6 +315,8 @@ void TreeSegmentor::train(const string& trainFile, const string& devFile, const 
 					decodeInstResults.push_back(curDecodeInst);
 				}
 			}
+			std::cout << "Dev finished. Total time taken is: " << double(clock() - time_start) / CLOCKS_PER_SEC << std::endl;
+			std::cout << "dev:" << std::endl;
 			std::cout << "dev:" << std::endl;
 			metricseg_dev.print();
 			metricarc_dev.print();
@@ -324,6 +328,8 @@ void TreeSegmentor::train(const string& trainFile, const string& devFile, const 
 
 
 			if (testNum > 0) {
+				time_start = clock();
+				std::cout << "Test start." << std::endl;
 				if (!m_options.outBest.empty())
 					decodeInstResults.clear();
 				metricseg_test.reset(); metricarc_test.reset();
@@ -334,6 +340,8 @@ void TreeSegmentor::train(const string& trainFile, const string& devFile, const 
 						decodeInstResults.push_back(curDecodeInst);
 					}
 				}
+				std::cout << "Test finished. Total time taken is: " << double(clock() - time_start) / CLOCKS_PER_SEC << std::endl;
+				std::cout << "test:" << std::endl;
 				std::cout << "test:" << std::endl;
 				metricseg_test.print();
 				metricarc_test.print();
@@ -344,6 +352,7 @@ void TreeSegmentor::train(const string& trainFile, const string& devFile, const 
 			}
 
 			for (int idx = 0; idx < otherInsts.size(); idx++) {
+				time_start = clock();
 				std::cout << "processing " << m_options.testFiles[idx] << std::endl;
 				if (!m_options.outBest.empty())
 					decodeInstResults.clear();
@@ -355,6 +364,7 @@ void TreeSegmentor::train(const string& trainFile, const string& devFile, const 
 						decodeInstResults.push_back(curDecodeInst);
 					}
 				}
+				std::cout << m_options.testFiles[idx] << " finished. Total time taken is: " << double(clock() - time_start) / CLOCKS_PER_SEC << std::endl;
 				std::cout << "test:" << std::endl;
 				metricseg_test.print();
 				metricarc_test.print();

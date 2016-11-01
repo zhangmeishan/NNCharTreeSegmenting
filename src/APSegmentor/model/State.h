@@ -196,7 +196,7 @@ public:
 		next->_head[top1] = top0;
 		memcpy(next->_left_most_index, _left_most_index, sizeof(short)*_next_index);
 		memcpy(next->_right_most_index, _right_most_index, sizeof(short)*_next_index);
-		next->_left_most_index[top0] = top1;
+		next->_left_most_index[top0] = _left_most_index[top1];
 
 		next->_prevStackState = _prevStackState;
 		next->_prevState = this;
@@ -231,7 +231,7 @@ public:
 		next->_head[top0] = top1;
 		memcpy(next->_left_most_index, _left_most_index, sizeof(short)*_next_index);
 		memcpy(next->_right_most_index, _right_most_index, sizeof(short)*_next_index);
-		next->_right_most_index[top1] = top0;
+		next->_right_most_index[top1] = _right_most_index[top0];
 
 		next->_prevStackState = _prevStackState;
 		next->_prevState = this;
