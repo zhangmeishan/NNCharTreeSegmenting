@@ -21,7 +21,7 @@ using namespace std;
 
 class TreeSegmentor {
 public:
-	TreeSegmentor();
+	TreeSegmentor(size_t memsize);
 	virtual ~TreeSegmentor();
 
 public:

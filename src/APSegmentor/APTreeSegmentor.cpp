@@ -10,7 +10,7 @@
 
 #include "Argument_helper.h"
 
-TreeSegmentor::TreeSegmentor() {
+TreeSegmentor::TreeSegmentor(size_t memsize) : m_driver(memsize) {
 	// TODO Auto-generated constructor stub
 	srand(0);
 	//Node::id = 0;
@@ -442,6 +442,7 @@ int main(int argc, char* argv[]) {
 	std::string outputFile = "";
 	bool bTrain = false;
 	dsr::Argument_helper ah;
+	int memsize = 4;
 
 	ah.new_flag("l", "learn", "train or test", bTrain);
 	ah.new_named_string("train", "trainCorpus", "named_string", "training corpus to train a model, must when training", trainFile);
@@ -452,10 +453,11 @@ int main(int argc, char* argv[]) {
 	ah.new_named_string("word", "wordEmbFile", "named_string", "pretrained word embedding file to train a model, optional when training", wordEmbFile);
 	ah.new_named_string("option", "optionFile", "named_string", "option file to train a model, optional when training", optionFile);
 	ah.new_named_string("output", "outputFile", "named_string", "output file to test, must when testing", outputFile);
+	ah.new_named_int("mem", "memsize", "named_int", "memory allocated for tensor nodes", memsize);
 
 	ah.process(argc, argv);
 
-	TreeSegmentor segmentor;
+	TreeSegmentor segmentor(memsize);
 	if (bTrain) {
 		segmentor.train(trainFile, devFile, testFile, modelFile, optionFile);
 	}
